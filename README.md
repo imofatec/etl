@@ -63,6 +63,13 @@ POSTGRES_USERNAME=username
 POSTGRES_PASSWORD=senha
 ```
 
+### Banco de Dados para Spring Batch
+Rode o comando `docker compose up -d` para subir o banco do Spring Batch
+
+```bash
+docker compose up -d
+```
+
 ### Spring Boot
 
 ```bash
