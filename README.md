@@ -59,8 +59,8 @@ Crie um arquivo em `src/main/resources` chamado `.env-dev.properties` e adicione
 ```bash
 MONGODB_URI=mongodb://localhost:27017/seu_banco_de_leitura
 POSTGRES_URL=jdbc:postgresql://localhost:5432/seu_banco_para_spring_batch
-POSTGRES_USERNAME=username
-POSTGRES_PASSWORD=senha
+POSTGRES_USERNAME=admin
+POSTGRES_PASSWORD=123
 ```
 
 ### Banco de Dados para Spring Batch
