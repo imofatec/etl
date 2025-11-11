@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 @Data
 @Builder
@@ -25,8 +26,8 @@ public class AnalyticsDetails implements Serializable {
     private String userInterestCategory2;
     private String userAvailableTime;
     private Integer lessonsWatchedCount;
-    private Double completionRate;
-    private Double completionProbability;
+    private BigDecimal completionRate;
+    private BigDecimal completionProbability;
 
     public static AnalyticsDetails from(ProgressDetails progressDetails) {
         if (progressDetails == null) {
@@ -47,21 +48,5 @@ public class AnalyticsDetails implements Serializable {
             .completionRate(progressDetails.getCompletionRate())
             .completionProbability(progressDetails.getCompletionProbability())
             .build();
-    }
-
-    public String getFormattedCompletionRate() {
-        return completionRate != null 
-            ? String.format("%.2f%%", completionRate * 100)
-            : "0.00%";
-    }
-
-    public boolean isCompleted() {
-        return completionRate != null && completionRate >= 1.0;
-    }
-
-    public String getFormattedCompletionProbability() {
-        return completionProbability != null 
-            ? String.format("%.4f (%.2f%%)", completionProbability, completionProbability * 100)
-            : "N/A";
     }
 }
