@@ -1,8 +1,8 @@
 package com.imo.etl_imo.processor;
 
 import com.imo.etl_imo.model.dto.ProgressDetails;
+import com.imo.etl_imo.processor.utils.NumberFormatter;
 import org.springframework.stereotype.Component;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -55,7 +55,7 @@ public class CompletionScoreCalculator {
         }
 
         double completionRate = (double) lessonsWatched / totalLessons;
-        return completionRate * 100.0;
+        return NumberFormatter.formatNumber(completionRate * 100, 3);
     }
 
     private double calculateExperienceEngagementScore(ProgressDetails details) {

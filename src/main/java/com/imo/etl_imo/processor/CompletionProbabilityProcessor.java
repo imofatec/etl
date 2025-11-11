@@ -1,9 +1,11 @@
 package com.imo.etl_imo.processor;
 
 import com.imo.etl_imo.model.dto.ProgressDetails;
+import com.imo.etl_imo.processor.utils.NumberFormatter;
 import com.imo.etl_imo.model.dto.AnalyticsDetails;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Component;
+import java.math.BigDecimal;
 
 @Component
 public class CompletionProbabilityProcessor implements ItemProcessor<ProgressDetails, AnalyticsDetails> {
@@ -16,8 +18,9 @@ public class CompletionProbabilityProcessor implements ItemProcessor<ProgressDet
 
     @Override
     public AnalyticsDetails process(ProgressDetails item) {
+        
         double completionScore = scoreCalculator.calculateScore(item);
-        double completionProbability = completionScore / 100.0;
+        BigDecimal completionProbability = NumberFormatter.formatNumberToBigDecimal((completionScore / 100), 3);
         item.setCompletionProbability(completionProbability);
 
         return AnalyticsDetails.from(item);

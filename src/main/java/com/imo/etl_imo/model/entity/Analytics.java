@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
+import java.math.BigDecimal;
 
 
 @Data
@@ -50,8 +51,8 @@ public class Analytics {
     private Integer lessonsWatchedCount;
 
     @Field("completion_rate")
-    private Double completionRate;
+    private BigDecimal completionRate;
 
     @Field("completion_probability")
-    private Double completionProbability;
+    private BigDecimal completionProbability;
 }

@@ -31,16 +31,15 @@ public class AcademicCompatibilityCalculator {
 
     private int mapAcademicDegree(String degree) {
         return switch (degree) {
-            case "none", "nenhum" -> 0;                                         // Sem grau acadêmico
-            case "technical", "técnico" -> 1;                                   // Técnico
-            case "associate", "tecnólogo" -> 2;                                 // Tecnólogo/Associate
-            case "bachelor", "graduação", "bachelor's", "bacharelado" -> 3;     // Graduação
-            case "licentiate", "licenciatura" -> 3;                             // Licenciatura (mesmo nível que Bachelor)
-            case "mba" -> 4;                                                    // MBA
-            case "master", "mestrado", "master's" -> 5;                         // Mestrado
-            case "doctoral", "phd", "doutorado", "doctorate" -> 6;              // Doutorado
-            case "postdoc", "pós-doutorado", "post-doctoral" -> 7;              // Pós-doutorado
-            default -> 3;  // Default para graduação
+            case "none", "nenhum" -> 0;                                   
+            case "technical", "técnico" -> 1;                                
+            case "bachelor", "graduação", "bachelor's", "bacharelado" -> 3;
+            case "licentiate", "licenciatura" -> 3;                           
+            case "mba" -> 4;                                                 
+            case "master", "mestrado", "master's" -> 5;                    
+            case "doctoral", "phd", "doutorado", "doctorate" -> 6;         
+            case "postdoc", "pós-doutorado", "post-doctoral" -> 7;            
+            default -> 3; 
         };
     }
 

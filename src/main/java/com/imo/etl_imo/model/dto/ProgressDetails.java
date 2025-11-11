@@ -3,13 +3,14 @@ package com.imo.etl_imo.model.dto;
 import com.imo.etl_imo.model.pojo.CoursePojo;
 import com.imo.etl_imo.model.pojo.ProgressPojo;
 import com.imo.etl_imo.model.pojo.UserPojo;
+import com.imo.etl_imo.processor.utils.NumberFormatter;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
-
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 @Data
 @Builder
@@ -31,8 +32,8 @@ public class ProgressDetails implements Serializable {
     private String userInterestCategory2;
     private String userAvailableTime;
     private Integer lessonsWatchedCount;
-    private Double completionRate;
-    private Double completionProbability;
+    private BigDecimal completionRate;
+    private BigDecimal completionProbability;
 
     public static ProgressDetails from(ProgressPojo progress, UserPojo user, CoursePojo course) {
         if (progress == null || user == null || course == null) {
@@ -41,7 +42,9 @@ public class ProgressDetails implements Serializable {
 
         int watchedCount = progress.getLessonsWatchedCount();
         int totalLessons = course.getLessonsCount() != null ? course.getLessonsCount() : 0;
-        double completionRate = totalLessons > 0 ? (double) watchedCount / totalLessons : 0.0;
+        BigDecimal completionRate = totalLessons > 0 
+            ? NumberFormatter.formatNumberToBigDecimal((double) watchedCount / totalLessons, 3)
+            : BigDecimal.ZERO;
 
         return ProgressDetails.builder()
             .progressId(progress.getId())
@@ -71,21 +74,5 @@ public class ProgressDetails implements Serializable {
 
     public String getCourseIdAsString() {
         return courseId != null ? courseId.toHexString() : null;
-    }
-
-    public String getFormattedCompletionRate() {
-        return completionRate != null 
-            ? String.format("%.2f%%", completionRate * 100)
-            : "0.00%";
-    }
-
-    public boolean isCompleted() {
-        return completionRate != null && completionRate >= 1.0;
-    }
-
-    public String getFormattedCompletionProbability() {
-        return completionProbability != null 
-            ? String.format("%.4f (%.2f%%)", completionProbability, completionProbability * 100)
-            : "N/A";
     }
 }
