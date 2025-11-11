@@ -1,46 +1,54 @@
-# ETL IMO - Sistema de Análise de Probabilidade de Conclusão
+# ETL IMO
 
-Sistema ETL (Extract, Transform, Load) que processa dados de progresso de cursos 
+---
 
-## Tecnologias utilizadas
+Sistema **ETL (Extract, Transform, Load)** desenvolvido para processar dados de usuarios , cursos e progresso para posteriormente ,calcular a **probabilidade de conclusão de um curso**. O sistema utiliza um algoritmo baseado em **5 dimensões ponderadas** para realizar previsões precisas sobre o engajamento e conclusão de cursos.
 
-- **Linguagem**: [Java 21](https://www.java.com/pt-BR/)
-- **Framework**: [Spring Boot 3.5.7](https://spring.io/projects/spring-boot)
-- **Batch Processing**: [Spring Batch 5.2.4](https://spring.io/projects/spring-batch)
-- **Banco de dados NoSQL**: [MongoDB 5.5.2](https://www.mongodb.com/)
-- **Banco de dados Relacional**: [PostgreSQL 18.0](https://www.postgresql.org/)
-- **Migration**: [Flyway](https://flywaydb.org/)
+---
 
-## Algoritmo de Probabilidade
-O sistema calcula a probabilidade de conclusão baseado em **5 dimensões**:
+## 🎯 Algoritmo de Probabilidade
 
-| Dimensão | Peso | Descrição |
-|----------|------|-----------|
-| **Progresso de Conclusão** | 35% | Percentual de aulas assistidas |
-| **Compatibilidade Acadêmica** | 20% | Match entre formação e nível do curso |
-| **Compatibilidade de Interesses** | 20% | Match entre interesses e categoria do curso |
-| **Nível de Experiência** | 15% | Histórico de engajamento do usuário |
-| **Disponibilidade de Tempo** | 10% | Tempo disponível vs duração do curso |
+O cálculo considera **5 dimensões com pesos específicos**:
 
-## Requisitos
+| Dimensão                  | Peso | Descrição |
+|---------------------------|------|-----------|
+| **Progresso de Conclusão** | 35%  | Percentual de aulas assistidas |
+| **Compatibilidade Acadêmica** | 20%  | Match entre formação e nível do curso |
+| **Compatibilidade de Interesses** | 20%  | Match entre interesses e categoria do curso |
+| **Nível de Experiência**  | 15%  | Histórico de engajamento do usuário |
+| **Disponibilidade de Tempo** | 10%  | Tempo disponível vs duração do curso |
 
-- Java 21
-- Spring Batch
-- Maven
-- MongoDB 
-- PostgreSQL
+---
 
-## Clone
+## 🛠 Tecnologias Utilizadas
+
+- **Java 21** – Linguagem de programação  
+- **Spring Boot 3.5.7** – Framework principal  
+- **Spring Batch 5.2.4** – Processamento em lote  
+- **MongoDB 5.5.2** – Banco de dados NoSQL  
+- **PostgreSQL 18.0** – Banco de dados relacional  
+- **Flyway** – Gerenciamento de migrations  
+- **Maven** – Gerenciamento de dependências  
+
+---
+
+## ⚙️ Configuração
+
+### Clone
+
+Rode no terminal para baixar o projeto:
 
 ```bash
-git clone https://github.com/imofatec/etl
+git clone https://github.com/imofatec/etl.git
+cd etl_imo
 ```
 
-## Setup
+## Profile
 
-### Profile
+Ative o perfil de desenvolvimento em `src/main/resources/application.properties` e adicione:
 
-```properties
+```bash
+spring.config.import=optional:classpath:.env-dev.properties
 spring.profiles.default=prod
 spring.profiles.active=dev
 ```
@@ -48,16 +56,18 @@ spring.profiles.active=dev
 ### Envs
 Crie um arquivo em `src/main/resources` chamado `.env-dev.properties` e adicione nele as variáveis de ambiente necessárias
 
-
-MONGODB_URI=mongodb://localhost:27017/x
-POSTGRES_URL=jdbc:postgresql://localhost:5432/y
-POSTGRES_USERNAME=xxxx
-POSTGRES_PASSWORD=xxxx
+```bash
+MONGODB_URI=mongodb://localhost:27017/seu_banco_de_leitura
+POSTGRES_URL=jdbc:postgresql://localhost:5432/seu_banco_para_spring_batch
+POSTGRES_USERNAME=admin
+POSTGRES_PASSWORD=123
 ```
 
-Execute:
+### Banco de Dados para Spring Batch
+Rode o comando `docker compose up -d` para subir o banco do Spring Batch
+
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 ### Spring Boot
@@ -66,25 +76,3 @@ docker-compose up -d
 ./mvnw spring-boot:run
 ```
 
-
-```bash
-mvn spring-boot:run
-```
-## Fluxo de Execução
-
-1. **Reader**: Carrega dados de `progress`, `users` e `courses` do MongoDB
-   
-2. **Processor**: Calcula `completion_probability` para cada registro
-   
-3. **Writer**: Insere resultados na collection `analytics`
-
-### Exemplo de Resultado
-```json
-{
-  "progress_id": "691084cd6d007306e6f1984b",
-  "course_category": "DEV_MOBILE",
-  "course_level": "Iniciante",
-  "completion_rate": 0.6,
-  "completion_probability": 0.6375
-}
-```
