@@ -1,9 +1,9 @@
-package com.imo.etl_imo.config;
+package com.imo.etl_imo.batch.config;
 
 import com.imo.etl_imo.model.dto.ProgressDetails;
 import com.imo.etl_imo.model.dto.AnalyticsDetails;
-import com.imo.etl_imo.processor.CompletionProbabilityProcessor;
-import com.imo.etl_imo.writer.AnalyticsWriter;
+import com.imo.etl_imo.batch.processor.CompletionProbabilityProcessor;
+import com.imo.etl_imo.batch.writer.AnalyticsWriter;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.job.builder.JobBuilder;

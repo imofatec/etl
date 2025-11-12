@@ -1,4 +1,4 @@
-package com.imo.etl_imo.writer;
+package com.imo.etl_imo.batch.writer;
 
 import com.imo.etl_imo.model.dto.AnalyticsDetails;
 import com.imo.etl_imo.model.entity.Analytics;

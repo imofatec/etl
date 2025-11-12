@@ -2,8 +2,6 @@ package com.imo.etl_imo.model.pojo;
 
 import lombok.Data;
 import org.bson.types.ObjectId;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 import java.time.LocalDate;
 import java.time.Period;
@@ -12,10 +10,8 @@ import java.util.Date;
 import java.util.List;
 
 @Data
-@Document(collection = "users")
 public class UserPojo {
 
-    @Id
     private ObjectId id;
 
     @Field("name")

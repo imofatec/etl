@@ -1,8 +1,9 @@
-package com.imo.etl_imo.processor;
+package com.imo.etl_imo.batch.processor;
 
 import com.imo.etl_imo.model.dto.ProgressDetails;
-import com.imo.etl_imo.processor.utils.NumberFormatter;
+import com.imo.etl_imo.util.NumberFormatter;
 import com.imo.etl_imo.model.dto.AnalyticsDetails;
+import com.imo.etl_imo.batch.processor.calculator.CompletionScoreCalculator;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Component;
 import java.math.BigDecimal;

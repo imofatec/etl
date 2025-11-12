@@ -1,4 +1,4 @@
-package com.imo.etl_imo.processor;
+package com.imo.etl_imo.batch.processor.calculator;
 
 import com.imo.etl_imo.model.dto.ProgressDetails;
 import org.springframework.stereotype.Component;

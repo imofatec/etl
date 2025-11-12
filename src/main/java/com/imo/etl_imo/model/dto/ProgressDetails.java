@@ -1,9 +1,9 @@
 package com.imo.etl_imo.model.dto;
 
 import com.imo.etl_imo.model.pojo.CoursePojo;
-import com.imo.etl_imo.model.pojo.ProgressPojo;
+import com.imo.etl_imo.model.pojo.ProgressWithDetails;
 import com.imo.etl_imo.model.pojo.UserPojo;
-import com.imo.etl_imo.processor.utils.NumberFormatter;
+import com.imo.etl_imo.util.NumberFormatter;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -35,19 +35,19 @@ public class ProgressDetails implements Serializable {
     private BigDecimal completionRate;
     private BigDecimal completionProbability;
 
-    public static ProgressDetails from(ProgressPojo progress, UserPojo user, CoursePojo course) {
-        if (progress == null || user == null || course == null) {
+    public static ProgressDetails fromAggregation(ProgressWithDetails progressWithDetails, UserPojo user, CoursePojo course) {
+        if (progressWithDetails == null || user == null || course == null) {
             throw new IllegalArgumentException("Progress, User e Course não podem ser null");
         }
 
-        int watchedCount = progress.getLessonsWatchedCount();
+        int watchedCount = progressWithDetails.getLessonsWatchedCount();
         int totalLessons = course.getLessonsCount() != null ? course.getLessonsCount() : 0;
         BigDecimal completionRate = totalLessons > 0 
             ? NumberFormatter.formatNumberToBigDecimal((double) watchedCount / totalLessons, 3)
             : BigDecimal.ZERO;
 
         return ProgressDetails.builder()
-            .progressId(progress.getId())
+            .progressId(progressWithDetails.getId())
             .userId(user.getId())
             .courseId(course.getId())
             .courseCategory(course.getCategoryName())

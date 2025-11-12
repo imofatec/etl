@@ -1,10 +1,8 @@
-package com.imo.etl_imo.processor;
+package com.imo.etl_imo.batch.processor.calculator;
 
 import com.imo.etl_imo.model.dto.ProgressDetails;
-import com.imo.etl_imo.processor.utils.NumberFormatter;
+import com.imo.etl_imo.util.NumberFormatter;
 import org.springframework.stereotype.Component;
-import java.util.HashMap;
-import java.util.Map;
 
 @Component
 public class CompletionScoreCalculator {
@@ -90,26 +88,5 @@ public class CompletionScoreCalculator {
         }
 
         return baseScore;
-    }
-
-    public Map<String, Double> calculateScoreBreakdown(ProgressDetails details) {
-        Map<String, Double> breakdown = new HashMap<>();
-
-        breakdown.put("completionProgress", calculateCompletionProgressScore(details));
-        breakdown.put("academicCompatibility", academicCalculator.calculate(details));
-        breakdown.put("interestCompatibility", interestCalculator.calculate(details));
-        breakdown.put("experienceEngagement", calculateExperienceEngagementScore(details));
-        breakdown.put("timeAvailability", calculateTimeAvailabilityScore(details));
-
-        double finalScore =
-            (breakdown.get("completionProgress") * WEIGHT_COMPLETION_PROGRESS) +
-            (breakdown.get("academicCompatibility") * WEIGHT_ACADEMIC_COMPATIBILITY) +
-            (breakdown.get("interestCompatibility") * WEIGHT_INTEREST_COMPATIBILITY) +
-            (breakdown.get("experienceEngagement") * WEIGHT_EXPERIENCE_ENGAGEMENT) +
-            (breakdown.get("timeAvailability") * WEIGHT_TIME_AVAILABILITY);
-
-        breakdown.put("finalScore", Math.max(0, Math.min(100, finalScore)));
-
-        return breakdown;
     }
 }

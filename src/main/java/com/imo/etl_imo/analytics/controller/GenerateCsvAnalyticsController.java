@@ -1,4 +1,4 @@
-package com.imo.etl_imo.controller;
+package com.imo.etl_imo.analytics.controller;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -6,7 +6,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.imo.etl_imo.csv.service.impl.ReturnAnalyticsCsvServiceImpl;
+import com.imo.etl_imo.analytics.service.impl.ReturnAnalyticsCsvServiceImpl;
 
 
 

@@ -1,4 +1,4 @@
-package com.imo.etl_imo.csv.config;
+package com.imo.etl_imo.analytics.util;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import com.imo.etl_imo.model.dto.AnalyticsDetails;
 
 @Component
-public class CsvConfig {
+public class CsvGenerator {
     private static final String CSV_HEADER = "courseCategory,courseLevel,courseLessonsCount,userAcademicDegree, userExperienceLevel, userAge, userInterestCategory1, userInterestCategory2, userAvailableTime, lessonsWatchedCount, completionRate, completionProbability";
 
     public String generateCsv(List<AnalyticsDetails> analyticsDetails) {

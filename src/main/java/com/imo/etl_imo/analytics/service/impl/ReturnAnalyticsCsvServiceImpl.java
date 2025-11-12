@@ -1,9 +1,9 @@
-package com.imo.etl_imo.csv.service.impl;
+package com.imo.etl_imo.analytics.service.impl;
 
 import java.nio.charset.StandardCharsets;
 import org.springframework.stereotype.Service;
-import com.imo.etl_imo.csv.config.CsvConfig;
-import com.imo.etl_imo.csv.service.ReturnAnalyticsCsvService;
+import com.imo.etl_imo.analytics.util.CsvGenerator;
+import com.imo.etl_imo.analytics.service.ReturnAnalyticsCsvService;
 import com.imo.etl_imo.model.dto.AnalyticsDetails;
 import com.imo.etl_imo.repository.AnalyticsRepository;
 
@@ -11,12 +11,12 @@ import com.imo.etl_imo.repository.AnalyticsRepository;
 public class ReturnAnalyticsCsvServiceImpl implements ReturnAnalyticsCsvService{
 
     private final AnalyticsRepository analyticsRepository;
-    private final CsvConfig csvConfig;
+    private final CsvGenerator csvGenerator;
     
     public ReturnAnalyticsCsvServiceImpl(AnalyticsRepository analyticsRepository,
-                                         CsvConfig csvConfig) {
+                                         CsvGenerator csvGenerator) {
         this.analyticsRepository = analyticsRepository;
-        this.csvConfig = csvConfig;
+        this.csvGenerator = csvGenerator;
     }
 
 
@@ -40,7 +40,7 @@ public class ReturnAnalyticsCsvServiceImpl implements ReturnAnalyticsCsvService{
                         d.getCompletionProbability()
                     )).toList();
         
-        String csvStream = csvConfig.generateCsv(data);
+        String csvStream = csvGenerator.generateCsv(data);
         var csvBytes = csvStream.getBytes(StandardCharsets.UTF_8);
         return csvBytes;
 

@@ -1,4 +1,4 @@
-package com.imo.etl_imo.config;
+package com.imo.etl_imo.batch.runner;
 
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParameters;
